@@ -613,7 +613,7 @@ export class Overlay extends AbstractPureComponent2<OverlayProps, IOverlayState>
 
     private handleBackdropMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         const { backdropProps, canOutsideClickClose, enforceFocus, onClose } = this.props;
-        if (canOutsideClickClose) {
+        if (canOutsideClickClose && e.button === 1) {
             onClose?.(e);
         }
         if (enforceFocus) {
@@ -636,7 +636,7 @@ export class Overlay extends AbstractPureComponent2<OverlayProps, IOverlayState>
                 return elem && elem.contains(eventTarget) && !elem.isSameNode(eventTarget);
             });
 
-        if (isOpen && !isClickInThisOverlayOrDescendant && canOutsideClickClose) {
+        if (isOpen && !isClickInThisOverlayOrDescendant && canOutsideClickClose && e.button === 1) {
             // casting to any because this is a native event
             onClose?.(e as any);
         }
